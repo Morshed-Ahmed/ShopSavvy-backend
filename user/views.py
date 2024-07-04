@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
 # Create your views here.
-# users/views.py
 
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -23,20 +22,6 @@ class RegisterView(generics.CreateAPIView):
     permission_classes = [AllowAny]
 
 
-# class CustomAuthToken(ObtainAuthToken):
-#     serializer_class = CustomAuthTokenSerializer
-
-#     def post(self, request, *args, **kwargs):
-#         serializer = self.serializer_class(data=request.data, context={'request': request})
-#         serializer.is_valid(raise_exception=True)
-#         user = serializer.validated_data['user']
-#         token, created = Token.objects.get_or_create(user=user)
-#         return Response({
-#             'token': token.key,
-#             'user_id': user.pk,
-#             'username': user.username,
-#             'role': user.role  # Assuming user.role is a field in your user model
-#         })
 
 class CustomAuthToken(ObtainAuthToken):
     
@@ -47,7 +32,7 @@ class CustomAuthToken(ObtainAuthToken):
             'token': token.key,
             'user_id': token.user_id,
             'username': token.user.username,
-            'role': token.user.role  # Assuming user.role is a field in your user model
+            'role': token.user.role  
         })
 
 class ProfileView(generics.RetrieveAPIView):
